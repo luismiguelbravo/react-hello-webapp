@@ -1,18 +1,13 @@
 import React, {useState, useEffect} from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
 import "../../styles/characters.css";
 
 export const Characters = () => {
-  
-
   const url = 'https://www.swapi.tech/api/people?page=1&limit=100'
   const [people, setPeople] = useState()
-
   const fetchApi = async (url) => {
     if ( localStorage.getItem('charactersList') == null ) {
       const response = await fetch(url);
       const responseJson = await response.json()
-      console.log('responseJson', responseJson)
       setPeople(responseJson.results);
       localStorage.setItem('charactersList', JSON.stringify(responseJson.results));
     } else {
@@ -20,27 +15,19 @@ export const Characters = () => {
       setPeople(localStorageList);
     }
   }
-
   const filterByWord = (event) => {
     const localStorageList = JSON.parse(localStorage.getItem('charactersList'));
     setPeople(
       localStorageList.filter(character => character.name.toUpperCase().includes(event.target.value.toUpperCase()))
     )
-    console.log("word", event.target.value);
   }
-
   useEffect(() => {
     fetchApi(url)
   }, [])
-
-
 	return (
     <div className='container'>
     <h1>BROWSE DATABANK</h1>
-
     <input type="text" placeholder="search" onChange={filterByWord}></input>
-
-
       <div className="row">
         {!people ? 'Cargando...':
           people.map(character => {
