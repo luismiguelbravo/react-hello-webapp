@@ -7,6 +7,9 @@ export const Navbar = () => {
 			<Link to="/">
 				<span className="navbar-brand mb-0 h1">Home</span>
 			</Link>
+      <Link to="/characters">
+				<span className="navbar-brand mb-1 h1">characters</span>
+			</Link>
 		</nav>
 	);
 };
