@@ -4,35 +4,22 @@ import "../../styles/characters.css";
 
 export const Characters = () => {
 
-  const url = 'https://www.swapi.tech/api/people/'
+  const url = 'https://www.swapi.tech/api/people?page=1&limit=100'
   const [people, setPeople] = useState()
-  const [totalPages, setTotalPages] = useState(0)
-  const [paginator, setPaginator] = useState()
-
 
   const fetchApi = async (url) => {
-    setPeople(null)
-    const response = await fetch(url);
-    const responseJson = await response.json()
-    console.log('responseJson', responseJson)
-    setPeople(responseJson.results);
-
-    console.log("");
-    console.log("response.total_pages", responseJson.total_pages)
-    console.log("");
-
-    const pages = []
-    for (let index = 0; index < responseJson.total_pages; index++) {
-      pages.push(
-        <span
-          onClick={event => fetchApi("https://www.swapi.tech/api/people?page=" + (index+1) +"&limit=10")}
-          key={index+1}
-          className="page-index">
-          {index+1}
-        </span>
-      )
+    
+    if ( localStorage.getItem('charactersList') == null ) {
+      const response = await fetch(url);
+      const responseJson = await response.json()
+      console.log('responseJson', responseJson)
+      setPeople(responseJson.results);
+      localStorage.setItem('charactersList', JSON.stringify(responseJson.results));
+    } else {
+      const localStorageList = JSON.parse(localStorage.getItem('charactersList'));
+      setPeople(localStorageList);
     }
-    setPaginator(pages);
+
   }
 
   useEffect(() => {
@@ -49,7 +36,7 @@ export const Characters = () => {
             const imageUrl = "https://starwars-visualguide.com/assets/img/characters/" + character.uid + ".jpg"
             return <div className="col-3" key={character.uid}>
               <img src={imageUrl}></img>
-              {character.name}
+              <div className="name">{character.name}</div>
             </div>
           })
         } 
