@@ -1,0 +1,14 @@
+.nav-bar {
+  background-color: #4d4d4d;
+  height: 40px;
+  padding: 9px;
+}
+
+.nav-link {
+  margin-right: 1rem;
+}
+
+.no-decoration {
+  text-decoration: none;
+  color: white;
+}

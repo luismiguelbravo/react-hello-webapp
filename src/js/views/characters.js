@@ -33,7 +33,7 @@ export const Characters = () => {
           people.map(character => {
             const imageUrl = "https://starwars-visualguide.com/assets/img/characters/" + character.uid + ".jpg"
             return <div className="col-3" key={character.uid}>
-              <img src={imageUrl}></img>
+              <img className="character-img" src={imageUrl}></img>
               <div className="name">{character.name}</div>
             </div>
           })
