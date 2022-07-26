@@ -15,7 +15,7 @@ export const Navbar = () => {
       <Link className="no-decoration" to="/vehicles">
         <span className="navbar-brand mb-1">vehicles</span>
       </Link>
-      <Link className="no-decoration" to="/characters">
+      <Link className="no-decoration" to="/planets">
         <span className="navbar-brand mb-1">planets</span>
       </Link>
     </nav>
