@@ -10,3 +10,17 @@
 h1 {
   color: #797272;
 }
+
+.search-box {
+  margin: 13px;
+}
+
+.character-thumbnails {
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.character-thumbnails:hover {
+  border: 5px solid yellow;
+  cursor: pointer;
+}

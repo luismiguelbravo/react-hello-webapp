@@ -26,16 +26,22 @@ export const Characters = () => {
   }, [])
 	return (
     <div className='container'>
-    <h1>BROWSE DATABANK</h1>
-    <input type="text" placeholder="search" onChange={filterByWord}></input>
+      <div className="row">
+        <input className="search-box col-6" type="text" placeholder="search" onChange={filterByWord}></input>
+      </div>
+    
       <div className="row">
         {!people ? 'Cargando...':
           people.map(character => {
             const imageUrl = "https://starwars-visualguide.com/assets/img/characters/" + character.uid + ".jpg"
-            return <div className="col-3" key={character.uid}>
-              <img className="character-img" src={imageUrl}></img>
-              <div className="name">{character.name}</div>
-            </div>
+            return (
+              <div className="col-6 col-sm-4 col-md-3" key={character.uid}>
+                <div className="character-thumbnails">
+                  <img className="character-img" src={imageUrl}></img>
+                  <div className="name">{character.name}</div>
+                </div>
+              </div>
+            )
           })
         } 
       </div>
