@@ -12,3 +12,7 @@
   text-decoration: none;
   color: white;
 }
+
+.no-decoration:hover {
+  color: yellow;
+}
