@@ -5,7 +5,7 @@ export const CharacterDetails = () => {
   const fetchApi = async (url) => {
     console.log("url", url)
     const params = new URLSearchParams(location.search)
-    console.log("userId", params.get("userId"))
+    console.log("characterUid", params.get("characterUid"))
 
   }
 

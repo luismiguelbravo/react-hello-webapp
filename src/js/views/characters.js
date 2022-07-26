@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import "../../styles/characters.css";
+import { Link } from "react-router-dom";
 
 export const Characters = () => {
   const url = 'https://www.swapi.tech/api/people?page=1&limit=100'
@@ -37,8 +38,10 @@ export const Characters = () => {
             return (
               <div className="col-6 col-sm-4 col-md-3" key={character.uid}>
                 <div className="character-thumbnails">
-                  <img className="character-img" src={imageUrl}></img>
-                  <div className="name">{character.name}</div>
+                  <Link className="no-decoration" to={"/characters-details?characterUid=" + character.uid}   key={"link-" +character.uid}>
+                    <img className="character-img" src={imageUrl}></img>
+                    <div className="name">{character.name}</div>
+                  </Link>
                 </div>
               </div>
             )
