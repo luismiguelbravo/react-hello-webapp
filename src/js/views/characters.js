@@ -9,8 +9,11 @@ export const Characters = () => {
     if ( localStorage.getItem('charactersList') == null ) {
       const response = await fetch(url);
       const responseJson = await response.json()
-      setPeople(responseJson.results);
-      localStorage.setItem('charactersList', JSON.stringify(responseJson.results));
+
+      const orderList = responseJson.results.sort((a, b) => a.name.localeCompare(b.name))
+
+      setPeople(orderList);
+      localStorage.setItem('charactersList', JSON.stringify(orderList));
     } else {
       const localStorageList = JSON.parse(localStorage.getItem('charactersList'));
       setPeople(localStorageList);
