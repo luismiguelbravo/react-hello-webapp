@@ -10,6 +10,7 @@ import { CharacterDetails } from "./views/character-details"
 import { Vehicles } from "./views/vehicles"
 import { VehicleDetails } from "./views/vehicles-details"
 import { Planets } from "./views/Planets"
+import { PlanetDetails } from "./views/planet-details"
 
 import injectContext from "./store/appContext";
 
@@ -50,6 +51,9 @@ const Layout = () => {
 						</Route>
             <Route exact path="/planets">
 							<Planets />
+						</Route>
+            <Route exact path="/planet-details">
+							<PlanetDetails />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

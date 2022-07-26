@@ -42,10 +42,10 @@ export const Planets = () => {
             return (
               <div className="col-6 col-sm-4 col-md-3" key={planet.uid}>
                 <div className="character-thumbnails">
-                  <Link className="no-decoration" to={"/planets-details?planetUid=" + planet.uid}   key={"link-" + planet.uid}>
+                  <Link className="no-decoration" to={"/planet-details?planetUid=" + planet.uid}   key={"link-" + planet.uid}>
                     <img className="character-img" src={imageUrl} onError={({ currentTarget }) => {
                       currentTarget.onerror = null; // prevents looping
-                      currentTarget.src=planetNotFound;
+                      currentTarget.src = planetNotFound;
                     }}></img>
                     <div className="name">{planet.name}</div>
                   </Link>
