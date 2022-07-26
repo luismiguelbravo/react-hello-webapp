@@ -44,7 +44,6 @@ export const CharacterDetails = () => {
           <img className="character-detail-img" src={imageUrl + characterDetails.uid + ".jpg"}></img>
         </div>
 
-
         <div className="col-12 col-sm-6 col-md-6">
           <table className="table table-dark">
             <tbody>
