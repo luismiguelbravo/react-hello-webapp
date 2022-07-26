@@ -36,7 +36,7 @@ export const CharacterDetails = () => {
 
 	return (
     
-    <div className='container'>
+    <div className='container mt-56'>
       {!characterDetails ? 'Cargando...':
      
      <div className="row">
