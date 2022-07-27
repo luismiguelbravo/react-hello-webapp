@@ -4,27 +4,19 @@
 		"node": "16.x"
 	},
 	"version": "1.0.1",
+  "homepage": "https://luismiguelbravo.github.io",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
 		"start": "webpack-dev-server --config webpack.dev.js --host 0.0.0.0 --port 3000",
 		"build": "webpack --config webpack.prod.js",
-		"deploy": "node deploy-to-github.js"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
 	},
 	"author": {
-		"name": "Alejandro Sanchez",
-		"url": "http://alesanchezr.com/"
+		"name": "Luis Miguel Bravo",
+		"url": "https://luismiguelbravo.github.io/curriculum-vitae/"
 	},
-	"contributors": [
-		{
-			"name": "Alejandro Sanchez",
-			"url": "http://alesanchezr.com/"
-		},
-		{
-			"name": "Ignacio Cordoba",
-			"url": "http://github.com/nachovz"
-		}
-	],
 	"license": "ISC",
 	"devDependencies": {
 		"@babel/cli": "^7.16.0",
