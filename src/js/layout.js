@@ -9,7 +9,7 @@ import { Characters } from "./views/characters"
 import { CharacterDetails } from "./views/character-details"
 import { Vehicles } from "./views/vehicles"
 import { VehicleDetails } from "./views/vehicles-details"
-import { Planets } from "./views/Planets"
+import { Planets } from "./views/planets"
 import { PlanetDetails } from "./views/planet-details"
 
 import injectContext from "./store/appContext";
