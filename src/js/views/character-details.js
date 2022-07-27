@@ -60,12 +60,19 @@ export const CharacterDetails = () => {
         setIsFavorite(true)
       }
     }
+    updateFavoriteCount()
   }
 
   const removeFavorite = () => {
     const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
     localStorage.setItem('favoriteList', JSON.stringify(favoriteList.filter(favorite => favorite.url !== location.href)))
     setIsFavorite(false)
+    updateFavoriteCount();
+  }
+
+  const updateFavoriteCount = () => {
+    const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
+    document.getElementById("favorite-count").textContent = favoriteList.length;
   }
 
   
@@ -131,7 +138,7 @@ export const CharacterDetails = () => {
                   {
                     !isFavorite ? 
                     <span className="add-favorite" onClick={addFavorite}>🤍</span> :
-                    <span className="add-favorite" onClick={removeFavorite}>💝</span>
+                    <span className="add-favorite" onClick={removeFavorite}>❤️</span>
                   }
                 </td>
               </tr>

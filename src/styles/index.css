@@ -8,9 +8,10 @@ body {
 }
 
 .add-favorite {
+  font-size: 44px;
   cursor: pointer;
 }
 
 .add-favorite:hover {
-  font-size: 44px;
+  font-size: 50px;
 }
