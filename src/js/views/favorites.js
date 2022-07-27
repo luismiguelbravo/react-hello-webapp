@@ -10,6 +10,18 @@ export const Favorites = () => {
     setFavoriteList(JSON.parse(localStorage.getItem('favoriteList')));
   }
 
+  const removeFavorite = (url) => {
+    console.log(url);
+
+    const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
+    const favoriteListChange = favoriteList.filter(favorite => favorite.url !== url )
+    localStorage.setItem('favoriteList', JSON.stringify(favoriteListChange))
+    document.getElementById("favorite-count").textContent = favoriteListChange.length;
+    setFavoriteList(favoriteListChange);
+  }
+
+  
+
   useEffect(() => {
     loadFavoriteList()
   }, [])
@@ -30,7 +42,7 @@ export const Favorites = () => {
                   </div>
                   <div className="favorite-name">{favorite.name}</div>
                 </Link>
-                <button className="remove-button btn btn-warning" onClick={() => actions.changeColor(index, "orange")}>
+                <button className="remove-button btn btn-warning" onClick={() => removeFavorite(favorite.url)}>
                   remove 🗑️
                 </button>
               </div>
