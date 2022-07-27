@@ -1,6 +1,6 @@
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=U76WBYEInVI&ab_channel=LuisMiguelBravo">Demo Video</a>
+  <a target="_blank" href="https://www.youtube.com/watch?v=U76WBYEInVI&ab_channel=LuisMiguelBravo">Demo Video</a>
 </p>
 
 
