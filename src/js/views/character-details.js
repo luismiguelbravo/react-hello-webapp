@@ -5,7 +5,7 @@ export const CharacterDetails = () => {
 
   const urlBase = "https://www.swapi.tech/api/people/"
   const [characterDetails, setCharacterDetails] = useState()
-
+  const [isFavorite, setIsFavorite] = useState(false)
 
   const fetchApi = async () => {
 
@@ -26,7 +26,49 @@ export const CharacterDetails = () => {
       setCharacterDetails(localStorageCharacterDetails);
     }
 
+    const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
+    const favoritExist = favoriteList.filter( favorite => favorite.url === location.href);
+    setIsFavorite(favoritExist.length > 0)
+
   }
+
+  const addFavorite = () => {
+    console.log("addFavorite");
+    if ( localStorage.getItem('favoriteList') == null ) {
+      const favoriteList = [
+        {
+          name: characterDetails.properties.name,
+          url: location.href
+        }
+      ];
+      localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
+      setIsFavorite(true)
+    } else {
+      // verifico que el favorito ya este para no volver a agregarlo
+      const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
+      console.log("entrando en el caso de que si existe la lista de favoritos")
+
+      const favoritExist = favoriteList.filter( favorite => favorite.url === location.href);
+      if (favoritExist.length === 0 ) {
+        favoriteList.push(
+          {
+            name: characterDetails.properties.name,
+            url: location.href
+          }
+        )
+        localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
+        setIsFavorite(true)
+      }
+    }
+  }
+
+  const removeFavorite = () => {
+    const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
+    localStorage.setItem('favoriteList', JSON.stringify(favoriteList.filter(favorite => favorite.url !== location.href)))
+    setIsFavorite(false)
+  }
+
+  
 
   useEffect(() => {
     fetchApi()
@@ -83,6 +125,17 @@ export const CharacterDetails = () => {
                 <th> gender </th>
                 <td> {characterDetails.properties.gender} </td>
               </tr>
+              <tr>
+                <th></th>
+                <td>
+                  {
+                    !isFavorite ? 
+                    <span className="add-favorite" onClick={addFavorite}>🤍</span> :
+                    <span className="add-favorite" onClick={removeFavorite}>💝</span>
+                  }
+                </td>
+              </tr>
+
 
             </tbody>
           </table>
