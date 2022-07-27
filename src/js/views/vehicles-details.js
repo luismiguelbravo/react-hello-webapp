@@ -28,7 +28,7 @@ export const VehicleDetails = () => {
 
     const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
     if (favoriteList) {
-      const favoritExist = favoriteList.filter( favorite => favorite.url === location.href);
+      const favoritExist = favoriteList.filter( favorite => favorite.url === location.href.replace(location.origin, ""));
       setIsFavorite(favoritExist.length > 0)
     }
     else 
@@ -40,7 +40,7 @@ export const VehicleDetails = () => {
 
   const removeFavorite = () => {
     const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
-    localStorage.setItem('favoriteList', JSON.stringify(favoriteList.filter(favorite => favorite.url !== location.href)))
+    localStorage.setItem('favoriteList', JSON.stringify(favoriteList.filter(favorite => favorite.url !== location.href.replace(location.origin, ""))))
     setIsFavorite(false)
     updateFavoriteCount();
   }
@@ -56,7 +56,7 @@ export const VehicleDetails = () => {
       const favoriteList = [
         {
           name: vehicleDetails.properties.name,
-          url: location.href,
+          url: location.href.replace(location.origin, "").replace(location.origin, ""),
           image: imageUrl + vehicleDetails.uid + ".jpg"
         }
       ];
@@ -67,12 +67,12 @@ export const VehicleDetails = () => {
       const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
       console.log("entrando en el caso de que si existe la lista de favoritos")
 
-      const favoritExist = favoriteList.filter( favorite => favorite.url === location.href);
+      const favoritExist = favoriteList.filter( favorite => favorite.url === location.href.replace(location.origin, ""));
       if (favoritExist.length === 0 ) {
         favoriteList.push(
           {
             name: vehicleDetails.properties.name,
-            url: location.href,
+            url: location.href.replace(location.origin, "").replace(location.origin, ""),
             image: imageUrl + vehicleDetails.uid + ".jpg"
           }
         )

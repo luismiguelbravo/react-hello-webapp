@@ -4,38 +4,52 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Favorites = () => {
+
+  const [favoriteList, setFavoriteList] = useState(false)
+
 	const { store, actions } = useContext(Context);
+
+  const loadFavoriteList = () => {
+    setFavoriteList(JSON.parse(localStorage.getItem('favoriteList')));
+  }
+
+  useEffect(() => {
+    loadFavoriteList()
+  }, [])
 
 	return (
 		<div className="container">
+
+      <h1>Favorites</h1>
+
+      <div className="row">
+        <div className="col-12 col-sm-6 col-md-6">
+          <img className="character-detail-img" src={".jpg"}></img>
+        </div>
+        <div className="col-12 col-sm-6 col-md-6">
+
+        </div>
+      </div>
+
+
 			<ul className="list-group">
-				{store.demo.map((item, index) => {
+				{!favoriteList ? <div>empty</div> : favoriteList.map((favorite, index) => {
 					return (
-						<li
-							key={index}
-							className="list-group-item d-flex justify-content-between"
-							style={{ background: item.background }}>
-							<Link to={"/single/" + index}>
-								<span>Link to: {item.title}</span>
-							</Link>
-							{// Conditional render example
-							// Check to see if the background is orange, if so, display the message
-							item.background === "orange" ? (
-								<p style={{ color: item.initial }}>
-									Check store/flux.js scroll to the actions to see the code
-								</p>
-							) : null}
-							<button className="btn btn-success" onClick={() => actions.changeColor(index, "orange")}>
-								Change Color
+						<li key={index} className="list-group-item d-flex justify-content-between">
+              <Link to={favorite.url}>
+                <span>{favorite.name}</span>
+                <img className="character-detail-img" src={favorite.image}></img>
+                <button className="btn btn-warning" onClick={() => actions.changeColor(index, "orange")}>
+								remove 🗑️
 							</button>
+              </Link>
+              
+							
 						</li>
 					);
 				})}
 			</ul>
-			<br />
-			<Link to="/">
-				<button className="btn btn-primary">Back home</button>
-			</Link>
+
 		</div>
 	);
 };
