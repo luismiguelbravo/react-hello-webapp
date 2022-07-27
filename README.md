@@ -15,7 +15,7 @@ $ npm install
 ```
 $ cp .env.example .env
 ```
-3. Start coding! and the webpack dev server with live reload, for windows, mac, linux or Gitpod:
+3. Start 
 
 ```bash
 $ npm run start
