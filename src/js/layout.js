@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./views/home";
-import { Demo } from "./views/demo";
+import { Favorites } from "./views/favorites";
 import { Single } from "./views/single";
 import { Characters } from "./views/characters"
 import { CharacterDetails } from "./views/character-details"
@@ -31,8 +31,8 @@ const Layout = () => {
 						<Route exact path="/">
 							<Home />
 						</Route>
-						<Route exact path="/demo">
-							<Demo />
+						<Route exact path="/favorites">
+							<Favorites />
 						</Route>
 						<Route exact path="/single/:theid">
 							<Single />

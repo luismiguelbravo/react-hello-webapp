@@ -5,7 +5,7 @@ export const VehicleDetails = () => {
 
   const urlBase = "https://www.swapi.tech/api/vehicles/"
   const [vehicleDetails, setCharacterDetails] = useState()
-
+  const [isFavorite, setIsFavorite] = useState(false)
 
   const fetchApi = async () => {
 
@@ -26,6 +26,61 @@ export const VehicleDetails = () => {
       setCharacterDetails(localStorageCharacterDetails);
     }
 
+    const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
+    if (favoriteList) {
+      const favoritExist = favoriteList.filter( favorite => favorite.url === location.href);
+      setIsFavorite(favoritExist.length > 0)
+    }
+    else 
+    {
+      setIsFavorite(0)
+    }
+
+  }
+
+  const removeFavorite = () => {
+    const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
+    localStorage.setItem('favoriteList', JSON.stringify(favoriteList.filter(favorite => favorite.url !== location.href)))
+    setIsFavorite(false)
+    updateFavoriteCount();
+  }
+
+  const updateFavoriteCount = () => {
+    const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
+    document.getElementById("favorite-count").textContent = favoriteList.length;
+  }
+
+  const addFavorite = () => {
+    console.log("addFavorite");
+    if ( localStorage.getItem('favoriteList') == null ) {
+      const favoriteList = [
+        {
+          name: vehicleDetails.properties.name,
+          url: location.href,
+          image: imageUrl + vehicleDetails.uid + ".jpg"
+        }
+      ];
+      localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
+      setIsFavorite(true)
+    } else {
+      // verifico que el favorito ya este para no volver a agregarlo
+      const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
+      console.log("entrando en el caso de que si existe la lista de favoritos")
+
+      const favoritExist = favoriteList.filter( favorite => favorite.url === location.href);
+      if (favoritExist.length === 0 ) {
+        favoriteList.push(
+          {
+            name: vehicleDetails.properties.name,
+            url: location.href,
+            image: imageUrl + vehicleDetails.uid + ".jpg"
+          }
+        )
+        localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
+        setIsFavorite(true)
+      }
+    }
+    updateFavoriteCount()
   }
 
   useEffect(() => {
@@ -92,12 +147,20 @@ export const VehicleDetails = () => {
                 <th> cargo capacity </th>
                 <td> {vehicleDetails.properties.cargo_capacity} </td>
               </tr>
-
               <tr>
                 <th> consumables </th>
                 <td> {vehicleDetails.properties.consumables} </td>
               </tr>
-
+              <tr>
+                <th></th>
+                <td>
+                  {
+                    !isFavorite ? 
+                    <span className="add-favorite" onClick={addFavorite}>🤍</span> :
+                    <span className="add-favorite" onClick={removeFavorite}>❤️</span>
+                  }
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

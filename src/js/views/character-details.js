@@ -27,9 +27,14 @@ export const CharacterDetails = () => {
     }
 
     const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
-    const favoritExist = favoriteList.filter( favorite => favorite.url === location.href);
-    setIsFavorite(favoritExist.length > 0)
-
+    if (favoriteList) {
+      const favoritExist = favoriteList.filter( favorite => favorite.url === location.href);
+      setIsFavorite(favoritExist.length > 0)
+    }
+    else 
+    {
+      setIsFavorite(0)
+    }
   }
 
   const addFavorite = () => {
@@ -38,7 +43,8 @@ export const CharacterDetails = () => {
       const favoriteList = [
         {
           name: characterDetails.properties.name,
-          url: location.href
+          url: location.href,
+          image: imageUrl + characterDetails.uid + ".jpg"
         }
       ];
       localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
@@ -53,7 +59,8 @@ export const CharacterDetails = () => {
         favoriteList.push(
           {
             name: characterDetails.properties.name,
-            url: location.href
+            url: location.href,
+            image: imageUrl + characterDetails.uid + ".jpg"
           }
         )
         localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
@@ -74,8 +81,6 @@ export const CharacterDetails = () => {
     const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
     document.getElementById("favorite-count").textContent = favoriteList.length;
   }
-
-  
 
   useEffect(() => {
     fetchApi()

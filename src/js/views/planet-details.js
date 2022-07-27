@@ -6,7 +6,7 @@ export const PlanetDetails = () => {
 
   const urlBase = "https://www.swapi.tech/api/planets/"
   const [planetDetails, setPlanetDetails] = useState()
-
+  const [isFavorite, setIsFavorite] = useState(false)
 
   const fetchApi = async () => {
 
@@ -27,6 +27,61 @@ export const PlanetDetails = () => {
       setPlanetDetails(localStorageCharacterDetails);
     }
 
+    const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
+    if (favoriteList) {
+      const favoritExist = favoriteList.filter( favorite => favorite.url === location.href);
+      setIsFavorite(favoritExist.length > 0)
+    }
+    else 
+    {
+      setIsFavorite(0)
+    }
+
+  }
+
+  const addFavorite = () => {
+    console.log("addFavorite");
+    if ( localStorage.getItem('favoriteList') == null ) {
+      const favoriteList = [
+        {
+          name: planetDetails.properties.name,
+          url: location.href,
+          image: imageUrl + planetDetails.uid + ".jpg"
+        }
+      ];
+      localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
+      setIsFavorite(true)
+    } else {
+      // verifico que el favorito ya este para no volver a agregarlo
+      const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
+      console.log("entrando en el caso de que si existe la lista de favoritos")
+
+      const favoritExist = favoriteList.filter( favorite => favorite.url === location.href);
+      if (favoritExist.length === 0 ) {
+        favoriteList.push(
+          {
+            name: planetDetails.properties.name,
+            url: location.href,
+            image: imageUrl + planetDetails.uid + ".jpg"
+          }
+        )
+        localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
+        setIsFavorite(true)
+      }
+    }
+    updateFavoriteCount()
+  }
+
+  const removeFavorite = () => {
+    const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
+    localStorage.setItem('favoriteList', JSON.stringify(favoriteList.filter(favorite => favorite.url !== location.href)))
+    setIsFavorite(false)
+    updateFavoriteCount();
+  }
+
+  const updateFavoriteCount = () => {
+    const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
+    document.getElementById("favorite-count").textContent = favoriteList.length;
   }
 
   useEffect(() => {
@@ -66,7 +121,7 @@ export const PlanetDetails = () => {
                 <td> {planetDetails.properties.rotation_period} </td>
               </tr>
               <tr>
-                <th> orbital period </th>
+                <th> orbital  period </th>
                 <td> {planetDetails.properties.orbital_period} </td>
               </tr>
               <tr>
@@ -92,6 +147,16 @@ export const PlanetDetails = () => {
               <tr>
                 <th> description </th>
                 <td> {planetDetails.description} </td>
+              </tr>
+              <tr>
+                <th></th>
+                <td>
+                  {
+                    !isFavorite ? 
+                    <span className="add-favorite" onClick={addFavorite}>🤍</span> :
+                    <span className="add-favorite" onClick={removeFavorite}>❤️</span>
+                  }
+                </td>
               </tr>
 
             </tbody>

@@ -9,7 +9,7 @@ export const Navbar = () => {
   
   const calculeFavorites = () => {
     const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
-    document.getElementById("favorite-count").textContent = favoriteList.length;
+    document.getElementById("favorite-count").textContent = favoriteList ? favoriteList.length : 0;
   }
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export const Navbar = () => {
         </Link>
 
         <div className="ml-auto">
-          <Link to="/demo">
+          <Link to="/favorites">
             <button className="btn btn-primary">Favorites <span id="favorite-count"> { favoriteCount } </span></button>
           </Link>
         </div>
