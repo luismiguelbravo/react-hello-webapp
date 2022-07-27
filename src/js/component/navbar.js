@@ -1,12 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, { useEffect} from "react";
 import { Link } from "react-router-dom";
 import "../../styles/navbar.css";
 
 
 export const Navbar = () => {
-  
-  const [favoriteCount, setFavoriteCount] = useState(0)
-  
+
   const calculeFavorites = () => {
     const favoriteList = JSON.parse(localStorage.getItem('favoriteList'));
     document.getElementById("favorite-count").textContent = favoriteList ? favoriteList.length : 0;
@@ -34,7 +32,7 @@ export const Navbar = () => {
 
         <div className="ml-auto">
           <Link to="/favorites">
-            <button className="btn btn-primary">Favorites <span id="favorite-count"> { favoriteCount } </span></button>
+            <button className="btn btn-primary">Favorites <span id="favorite-count"> 0 </span></button>
           </Link>
         </div>
 
